@@ -17,11 +17,19 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+
+    const db = client.db("import-exportbd");
+    const collection = db.collection("products");
+    app.get("/products", async (req, res) => {
+      const products = await collection.find().toArray();
+      res.send(products);
+      console.log(products);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(

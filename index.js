@@ -30,6 +30,24 @@ async function run() {
       console.log(products);
     });
 
+    // Add a new product
+
+    app.post("/products", async (req, res) => {
+      const newProduct = req.body;
+      const result = await collection.insertOne(newProduct);
+      res.send(result);
+      console.log(result);
+    });
+
+
+
+
+
+
+
+
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
